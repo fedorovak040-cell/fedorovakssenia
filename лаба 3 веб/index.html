@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрация в соц. сети</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+  .form-container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+  }
+  h1 {
+    text-align: center;
+    color: #4a3f8f;
+    margin: 0 0 6px;
+    font-size: 26px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  fieldset {
+    border: 1px solid #e3e3ee;
+    border-radius: 12px;
+    padding: 18px 20px 22px;
+    margin: 0 0 20px;
+  }
+  legend {
+    color: #667eea;
+    font-weight: 600;
+    padding: 0 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .field {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .row {
+    display: flex;
+    gap: 16px;
+  }
+  .row .field { flex: 1; }
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #d8d8e6;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color .2s, box-shadow .2s;
+    background: #fafaff;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,.18);
+    background: #fff;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  .radio-group, .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+  }
+  .radio-group label, .checkbox-group label {
+    font-weight: 400;
+    font-size: 14px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    cursor: pointer;
+  }
+  .radio-group input, .checkbox-group input {
+    width: auto;
+    margin: 0;
+    accent-color: #667eea;
+  }
+  .hint { font-size: 12px; color: #999; margin-top: 4px; }
+  .avatar-field {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  input[type="file"] {
+    padding: 9px;
+    font-size: 13px;
+    background: #f4f4fb;
+    cursor: pointer;
+  }
+  input[type="file"]::file-selector-button {
+    background: #667eea;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-right: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background .2s;
+  }
+  input[type="file"]::file-selector-button:hover { background: #5560cc; }
+  input[type="range"] { padding: 0; accent-color: #667eea; }
+  .range-value { font-size: 13px; color: #667eea; font-weight: 600; }
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  button {
+    flex: 1;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .2s;
+  }
+  button:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+  button[type="submit"] {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+  }
+  button[type="reset"] {
+    background: #eee;
+    color: #555;
+    flex: 0 0 auto;
+    padding: 13px 22px;
+  }
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 18px;
+  }
+
+  .required { color: #e74c3c; margin-left: 2px; }
+
+  input:invalid:not(:placeholder-shown):not(:focus):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):not([type="password"]),
+  textarea:invalid:not(:placeholder-shown):not(:focus),
+  select:invalid:not(:focus):not(:valid) {
+    border-color: #e74c3c;
+    background: #fff5f5;
+  }
+  input:valid:not(:placeholder-shown):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):not([type="password"]):not([type="date"]) {
+    border-color: #2ecc71;
+  }
+  .error-message {
+    display: none;
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .field.invalid .error-message { display: block; }
+  .field.invalid input,
+  .field.invalid select,
+  .field.invalid textarea {
+    border-color: #e74c3c;
+    background: #fff5f5;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 12px; align-items: flex-start; }
+    .form-container { padding: 20px 16px; border-radius: 14px; }
+    h1 { font-size: 21px; }
+
+    .field label { display: none; }
+    .radio-group label, .checkbox-group label { display: flex; }
+    fieldset { padding: 14px 14px 18px; }
+
+    .row { flex-direction: column; gap: 0; }
+    .actions { flex-direction: column; }
+    button[type="reset"] { flex: 1; padding: 13px; }
+    .hint { display: block; }
+    .error-message { display: none !important; }
+    .field.invalid .error-message { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<main class="form-container">
+  <h1>Присоединяйтесь к Connect</h1>
+  <p class="subtitle">Создайте аккаунт и найдите друзей по всему миру</p>
+
+  <form id="regForm" action="#" method="post" enctype="multipart/form-data" novalidate>
+
+    <fieldset>
+      <legend>Учётная запись</legend>
+
+      <div class="field" data-field="login">
+        <label for="login">Логин <span class="required">*</span></label>
+        <input type="text" id="login" name="login"
+               placeholder="Логин * (только латиница)"
+               required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+"
+               autocomplete="username">
+        <span class="hint">От 3 до 20 символов, только латинские буквы, цифры и _</span>
+        <span class="error-message">Введите корректный логин (3–20 символов, латиница)</span>
+      </div>
+
+      <div class="field" data-field="email">
+        <label for="email">Электронная почта <span class="required">*</span></label>
+        <input type="email" id="email" name="email"
+               placeholder="example@mail.com *"
+               required autocomplete="email">
+        <span class="error-message">Введите корректный e-mail</span>
+      </div>
+
+      <div class="row">
+        <div class="field" data-field="password">
+          <label for="password">Пароль <span class="required">*</span></label>
+          <input type="password" id="password" name="password"
+                 placeholder="Пароль * (мин. 8 символов)"
+                 required minlength="8" autocomplete="new-password">
+          <span class="error-message">Пароль минимум 8 символов</span>
+        </div>
+        <div class="field" data-field="password-confirm">
+          <label for="password-confirm">Повторите пароль <span class="required">*</span></label>
+          <input type="password" id="password-confirm" name="password_confirm"
+                 placeholder="Повторите пароль *"
+                 required minlength="8" autocomplete="new-password">
+          <span class="error-message">Пароли не совпадают</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field" data-field="birthdate">
+          <label for="birthdate">Дата рождения <span class="required">*</span></label>
+          <input type="date" id="birthdate" name="birthdate" required>
+          <span class="error-message">Регистрация доступна с 16 лет</span>
+        </div>
+        <div class="field" data-field="gender">
+          <label for="gender">Пол <span class="required">*</span></label>
+          <select id="gender" name="gender" required>
+            <option value="" disabled selected>Выберите пол *</option>
+            <option value="male">Мужской</option>
+            <option value="female">Женский</option>
+            <option value="other">Другой</option>
+            <option value="na">Не хочу указывать</option>
+          </select>
+          <span class="error-message">Выберите пол</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Личные данные</legend>
+
+      <div class="row">
+        <div class="field" data-field="first-name">
+          <label for="first-name">Имя <span class="required">*</span></label>
+          <input type="text" id="first-name" name="first_name"
+                 placeholder="Имя *" required minlength="2" maxlength="50"
+                 autocomplete="given-name">
+          <span class="error-message">Введите имя (от 2 символов)</span>
+        </div>
+        <div class="field" data-field="last-name">
+          <label for="last-name">Фамилия <span class="required">*</span></label>
+          <input type="text" id="last-name" name="last_name"
+                 placeholder="Фамилия *" required minlength="2" maxlength="50"
+                 autocomplete="family-name">
+          <span class="error-message">Введите фамилию (от 2 символов)</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field" data-field="phone">
+          <label for="phone">Номер телефона <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone"
+                 placeholder="+7 (___) ___-__-__ *"
+                 required pattern="\+?[0-9\s\-\(\)]{10,18}"
+                 autocomplete="tel">
+          <span class="error-message">Введите корректный номер телефона</span>
+        </div>
+        <div class="field" data-field="country">
+          <label for="country">Страна <span class="required">*</span></label>
+          <input type="text" id="country" name="country" list="countries"
+                 placeholder="Начните вводить страну *" required
+                 autocomplete="country-name">
+          <datalist id="countries">
+            <option value="Россия"></option>
+            <option value="Беларусь"></option>
+            <option value="Казахстан"></option>
+            <option value="Украина"></option>
+            <option value="Армения"></option>
+            <option value="Грузия"></option>
+            <option value="Германия"></option>
+            <option value="США"></option>
+          </datalist>
+          <span class="error-message">Укажите страну</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="bio">О себе</label>
+        <textarea id="bio" name="bio" maxlength="300"
+                  placeholder="Расскажите о себе немного (до 300 символов)"></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Профиль</legend>
+
+      <div class="field">
+        <label for="avatar">Фото профиля</label>
+        <div class="avatar-field">
+          <input type="file" id="avatar" name="avatar"
+                 accept="image/png, image/jpeg, image/webp">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="username-color">Цвет профиля</label>
+        <input type="color" id="username-color" name="profile_color" value="#667eea">
+      </div>
+
+      <div class="field">
+        <label for="activity">Уровень активности в сети</label>
+        <input type="range" id="activity" name="activity"
+               min="0" max="100" value="50" step="5"
+               oninput="document.getElementById('activity-val').textContent = this.value + '%'">
+        <span class="range-value" id="activity-val">50%</span>
+      </div>
+
+      <div class="field" data-field="interest">
+        <span style="font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Основной интерес <span class="required">*</span></span>
+        <div class="radio-group">
+          <label><input type="radio" name="interest" value="tech" required> Технологии</label>
+          <label><input type="radio" name="interest" value="art"> Искусство</label>
+          <label><input type="radio" name="interest" value="sport"> Спорт</label>
+          <label><input type="radio" name="interest" value="music"> Музыка</label>
+        </div>
+        <span class="error-message">Выберите основной интерес</span>
+      </div>
+
+      <div class="field">
+        <span style="font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Дополнительно</span>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="newsletter" value="1" checked> Получать рассылку</label>
+          <label><input type="checkbox" name="public_profile" value="1"> Публичный профиль</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="invite-code" style="display:inline-block;">Инвайт-код</label>
+        <input type="text" id="invite-code" name="invite_code"
+               placeholder="Инвайт-код (если есть)"
+               maxlength="10">
+      </div>
+    </fieldset>
+
+    <div class="field" data-field="agree">
+      <label style="display:flex;align-items:center;gap:8px;font-weight:400;">
+        <input type="checkbox" id="agree" name="agree" required style="width:auto;margin:0;accent-color:#667eea;">
+        Я согласен с <a href="#" style="color:#667eea;">условиями использования</a> и
+        <a href="#" style="color:#667eea;">политикой конфиденциальности</a> <span class="required">*</span>
+      </label>
+      <span class="error-message">Необходимо согласие с условиями</span>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Зарегистрироваться</button>
+      <button type="reset">Очистить</button>
+    </div>
+  </form>
+
+  <footer>© 2025 Connect — социальная сеть нового поколения</footer>
+</main>
+
+<script>
+(function () {
+  const form = document.getElementById('regForm');
+  const password = document.getElementById('password');
+  const passwordConfirm = document.getElementById('password-confirm');
+  const birthdate = document.getElementById('birthdate');
+
+  const MIN_AGE = 16;
+
+  function isAgeValid(value) {
+    if (!value) return false;
+    const today = new Date();
+    const birth = new Date(value);
+    if (isNaN(birth.getTime())) return false;
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+    return age >= MIN_AGE;
+  }
+
+  const validators = {
+    login: v => /^[A-Za-z0-9_]{3,20}$/.test(v),
+    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+    'password': v => v.length >= 8,
+    'password-confirm': v => v.length >= 8 && v === password.value,
+    birthdate: v => isAgeValid(v),
+    gender: v => v !== '',
+    'first-name': v => v.trim().length >= 2,
+    'last-name': v => v.trim().length >= 2,
+    phone: v => /^\+?[0-9\s\-\(\)]{10,18}$/.test(v),
+    country: v => v.trim().length > 0,
+    interest: () => document.querySelector('input[name="interest"]:checked') !== null,
+    agree: () => document.getElementById('agree').checked
+  };
+
+  function getValue(name) {
+    const el = form.elements[name];
+    if (!el) return '';
+    if (el instanceof RadioNodeList) return el.value;
+    return el.value;
+  }
+
+  function setFieldState(name, valid) {
+    const field = form.querySelector(`[data-field="${name}"]`);
+    if (!field) return;
+    field.classList.toggle('invalid', !valid);
+  }
+
+  function validateField(name) {
+    const fn = validators[name];
+    if (!fn) return true;
+    const valid = fn(getValue(name));
+    setFieldState(name, valid);
+    return valid;
+  }
+
+  function validateAll() {
+    let allValid = true;
+    Object.keys(validators).forEach(name => {
+      if (!validateField(name)) allValid = false;
+    });
+    return allValid;
+  }
+
+  Object.keys(validators).forEach(name => {
+    const el = form.elements[name];
+    if (!el) return;
+    if (el instanceof RadioNodeList) {
+      el.forEach(r => r.addEventListener('change', () => validateField(name)));
+    } else {
+      el.addEventListener('blur', () => validateField(name));
+      el.addEventListener('input', () => {
+        if (form.querySelector(`[data-field="${name}"]`)?.classList.contains('invalid')) {
+          validateField(name);
+        }
+      });
+      el.addEventListener('change', () => validateField(name));
+    }
+  });
+
+  password.addEventListener('input', () => {
+    if (form.querySelector('[data-field="password-confirm"]').classList.contains('invalid')) {
+      validateField('password-confirm');
+    }
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const valid = validateAll();
+    if (!valid) {
+      const firstInvalid = form.querySelector('.field.invalid');
+      if (firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const input = firstInvalid.querySelector('input, select, textarea');
+        if (input) input.focus();
+      }
+      return;
+    }
+    if (password.value !== passwordConfirm.value) {
+      setFieldState('password-confirm', false);
+      passwordConfirm.focus();
+      return;
+    }
+    alert('Регистрация прошла успешно!');
+    form.reset();
+    form.querySelectorAll('.field.invalid').forEach(f => f.classList.remove('invalid'));
+    document.getElementById('activity-val').textContent = '50%';
+  });
+
+  form.addEventListener('reset', function () {
+    setTimeout(() => {
+      form.querySelectorAll('.field.invalid').forEach(f => f.classList.remove('invalid'));
+      document.getElementById('activity-val').textContent = '50%';
+    }, 0);
+  });
+})();
+</script>
+
+</body>
+</html>
