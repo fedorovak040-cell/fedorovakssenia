@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2 - Адаптивный макет</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <div class="controls">
+        <button class="btn mobile" onclick="setWidth(320)">320px</button>
+        <button class="btn tablet" onclick="setWidth(768)">768px</button>
+        <button class="btn desktop" onclick="setWidth(1200)">1200px</button>
+        <label class="grid-toggle">
+            <input type="checkbox" id="gridCheckbox" onclick="toggleGrid()"> Сетка
+        </label>
+    </div>
+
+    <div class="wrapper" id="wrapper">
+        <div class="layout" id="layout">
+            
+            <div class="row">
+                <div class="box c1 col-3">#CD5C5C</div>
+                <div class="box c2 col-1">#DC143C</div>
+                <div class="box c3 col-1">#8B0000</div>
+            </div>
+
+            <div class="row">
+                <div class="box c4 col-6">#FFC0CB</div>
+            </div>
+
+            <div class="row">
+                <div class="box c5 col-3">#FF69B4</div>
+                <div class="box c6 col-3">#C71585</div>
+            </div>
+
+            <div class="row">
+                <div class="box c7 col-3 tall">#00FF00</div>
+                <div class="box c12 col-1">#32CD32</div>
+                <div class="box c14 col-1 tall">#ADFF2F</div>
+                
+                <div class="box c8 col-1">#2E8B57</div>
+                <div class="box c13 col-1">#00FA9A</div>
+                <div class="box c9 col-1">#006400</div>
+                <div class="box c10 col-1">#9ACD32</div>
+                <div class="box c11 col-1">#808000</div>
+            </div>
+
+            <div class="row">
+                <div class="box c15 col-1">#FFA07A</div>
+                <div class="box c16 col-4">#FF4500</div>
+            </div>
+
+            <div class="row">
+                <div class="box c17 col-2">#BC8F8F</div>
+                <div class="box c18 col-2">#F4A460</div>
+                <div class="box c19 col-1">#8B4513</div>
+                <div class="box c20 col-1">#A52A2A</div>
+                <div class="box c21 col-2">#D2691E</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function setWidth(width) {
+            document.getElementById('layout').style.maxWidth = width + 'px';
+            document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+            if(width === 320) document.querySelector('.mobile').classList.add('active');
+            if(width === 768) document.querySelector('.tablet').classList.add('active');
+            if(width === 1200) document.querySelector('.desktop').classList.add('active');
+        }
+        function toggleGrid() {
+            var wrapper = document.getElementById('wrapper');
+            var checkbox = document.getElementById('gridCheckbox');
+            if (checkbox.checked) wrapper.classList.add('show-grid');
+            else wrapper.classList.remove('show-grid');
+        }
+    </script>
+</body>
+</html>
