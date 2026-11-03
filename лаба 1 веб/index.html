@@ -1,0 +1,150 @@
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Язык программирования Java</title>
+    
+
+    <link rel="stylesheet" href="normalize.css">
+    
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Язык программирования Java</h1>
+    </header>
+
+    <nav class="toc">
+        <h2>Содержание</h2>
+        <ul>
+            <li><a href="#history">1. История создания</a></li>
+            <li><a href="#overview">2. Краткий обзор языка</a></li>
+            <li><a href="#examples">3. Примеры кода</a></li>
+            <li><a href="#tags">4. Список использованных тегов и CSS-свойств</a></li>
+        </ul>
+    </nav>
+
+    
+    <section id="history">
+        <h2>История создания</h2>
+        
+      
+        <img src="img/java-logo.png" alt="Логотип Java" class="img-left" width="150">
+        
+        <p>Работа над языком Java началась в 1991 году командой инженеров компании <strong>Sun Microsystems</strong>. Изначально проект назывался «Oak» (Дуб) и предназначался для бытовой электроники (телевизоров, приставок). Однако индустрия развивалась не так, как ожидалось, и проект чуть не был закрыт.</p>
+        
+        <p>В 1995 году компания решила переориентировать язык на зарождающуюся сеть Интернет. Тогда же Oak переименовали в Java (в честь сорта кофе). Главной фишкой языка стала философия <em>«Написано один раз — работает везде»</em> благодаря виртуальной машине Java (JVM).</p>
+        
+
+        <img src="img/james-gosling.jpg" alt="Джеймс Гослинг" class="img-right" width="150">
+        
+        <p>Отцом-основателем языка считается Джеймс Гослинг. В 2010 году компанию Sun Microsystems купила корпорация Oracle, которая до сих пор владеет правами на Java и развивает её. Сегодня Java — один из самых популярных языков в мире.</p>
+        
+        <div class="clearfix"></div>
+    </section>
+
+    <section id="overview">
+        <h2>Краткий обзор языка</h2>
+        <p>Java — это строго типизированный объектно-ориентированный язык программирования общего назначения. Он используется для создания серверных приложений, мобильных приложений под Android, игр и корпоративных систем.</p>
+
+                <img src="img/java-code.png" alt="Код на Java" class="img-center" width="400">
+
+        <h3>Ключевые особенности:</h3>
+        
+                <ul>
+            <li><strong>Объектно-ориентированный:</strong> всё в Java является объектом.</li>
+            <li><strong>Кроссплатформенность:</strong> код компилируется в байт-код, который выполняется на любой ОС.</li>
+            <li><strong>Автоматическое управление памятью:</strong> сборщик мусора (Garbage Collector) очищает память сама.</li>
+        </ul>
+
+                <h3>Почему Java популярна:</h3>
+        <ul class="custom-marker">
+            <li>Огромное сообщество разработчиков.</li>
+            <li>Обилие готовых библиотек и фреймворков (Spring, Hibernate).</li>
+            <li>Высокий спрос на рынке труда.</li>
+        </ul>
+
+                <h3>Популярные версии Java:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Версия</th>
+                    <th>Год выпуска</th>
+                    <th>Главная особенность</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Java 1.0</td>
+                    <td>1996</td>
+                    <td>Первый официальный релиз</td>
+                </tr>
+                <tr>
+                    <td>Java 8</td>
+                    <td>2014</td>
+                    <td>Появление лямбда-выражений</td>
+                </tr>
+                <tr>
+                    <td>Java 17</td>
+                    <td>2021</td>
+                    <td>Долгосрочная поддержка (LTS)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+        <h3>Этапы работы программы на Java:</h3>
+        <ol>
+            <li>Написание исходного кода (файл <code>.java</code>).</li>
+            <li>Компиляция кода в байт-код (файл <code>.class</code>).</li>
+            <li>Запуск байт-кода на виртуальной машине Java (JVM).</li>
+        </ol>
+    </section>
+
+    
+    <section id="examples">
+        <h2>Примеры кода</h2>
+        <p>Классический пример программы «Hello, World!» на Java выглядит так:</p>
+
+                <pre><code><span class="keyword">public class</span> <span class="class-name">HelloWorld</span> {
+    <span class="keyword">public static void</span> main(<span class="class-name">String</span>[] args) {
+        <span class="comment">// Выводим текст на экран</span>
+        <span class="class-name">System</span>.out.println(<span class="string">"Hello, World!"</span>);
+    }
+}</code></pre>
+
+        <p>Также можно использовать циклы. Пример цикла <code>for</code>:</p>
+        <pre><code><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {
+    <span class="class-name">System</span>.out.println(<span class="string">"Итерация: "</span> + i);
+}</code></pre>
+
+        
+        <p>Подробнее с документацией можно ознакомиться на <a href="https://ru.wikipedia.org/wiki/Java" target="_blank">странице Java в Википедии</a>.</p>
+    </section>
+
+    
+    <section id="tags">
+        <h2>Список использованных тегов и CSS-свойств</h2>
+        
+        <h3>Использованные HTML-теги:</h3>
+        <p class="small-text">
+            html, head, meta, title, link, body, header, nav, section, h1, h2, h3, p, img, strong, em, div, ul, li, ol, table, thead, tbody, tr, th, td, pre, code, span, a, br
+            <!-- В этом списке 30 тегов! -->
+        </p>
+
+        <h3>Использованные CSS-свойства:</h3>
+        <p class="small-text">
+            font-family, font-size, font-weight, color, background-color, line-height, text-align, margin, padding, border, border-collapse, width, max-width, height, float, clear, display, box-sizing, text-decoration, list-style-type, list-style-image, background-image, background-repeat, background-position, border-radius, box-shadow, overflow-x, white-space, vertical-align, letter-spacing, text-transform, cursor, transition, opacity, position, top, bottom, left, right, z-index, outline
+            <!-- В этом списке 41 свойство! -->
+        </p>
+    </section>
+
+        <footer>
+        <p>&copy; 2024 Статья о Java. Выполнено в учебных целях.</p>
+    </footer>
+
+</body>
+</html>
