@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2 (Часть Б) - Методы массива</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Удаление элементов с чётными цифрами</h1>
+        
+        <p class="hint">Введите числа через пробел или запятую:</p>
+        <input type="text" id="arrayInput" placeholder="Например: 24.5, 13.7, 40.2, 86.1, 51.9" value="24.5, 13.7, 40.2, -86.1, 51.9, 22.2, 10.5">
+        
+        <button onclick="processArray()">Обработать</button>
+
+        <div id="result" class="result-box"></div>
+    </div>
+
+    <script>
+        function processArray() {
+            let inputStr = document.getElementById('arrayInput').value;
+            let arr = inputStr.split(/[\s,]+/).filter(item => item !== '').map(Number);
+            let resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+
+            if (arr.length === 0 || arr.some(isNaN)) {
+                resultDiv.innerHTML = "<p style='color:red;'>Ошибка! Введите корректные числа.</p>";
+                return;
+            }
+
+            // Функция проверки: все ли цифры в числе чётные
+            function isAllDigitsEven(num) {
+                let str = Math.abs(Math.trunc(num)).toString(); // Берем модуль целой части
+                for (let i = 0; i < str.length; i++) {
+                    if (parseInt(str[i]) % 2 !== 0) {
+                        return false; // Если нашли хотя бы одну нечетную цифру
+                    }
+                }
+                return true;
+            }
+
+            // ИСПОЛЬЗУЕМ МЕТОД МАССИВА .filter()
+            // Оставляем только те элементы, для которых условие НЕВЕРНО (то есть есть нечетные цифры)
+            let filteredArr = arr.filter(item => !isAllDigitsEven(item));
+
+            // Находим удаленные элементы для наглядности
+            let removedArr = arr.filter(item => isAllDigitsEven(item));
+
+            resultDiv.innerHTML = `
+                <p>Исходный массив: <strong>[${arr.join(', ')}]</strong></p>
+                <p style="color: #e74c3c;">Удаленные элементы (целая часть из чётных цифр): <strong>[${removedArr.join(', ')}]</strong></p>
+                <p style="color: #27ae60; font-size: 18px;">Новый массив: <strong>[${filteredArr.join(', ')}]</strong></p>
+            `;
+        }
+    </script>
+
+</body>
+</html>

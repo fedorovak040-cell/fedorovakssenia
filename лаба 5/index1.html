@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2 - Обработка массива</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Сумма до первого положительного синуса</h1>
+        
+        <p class="hint">Введите числа через пробел или запятую:</p>
+        <input type="text" id="arrayInput" placeholder="Например: 1.5, 2.7, 4.2, 5.8" value="1.5, 2.7, 4.2, 5.8, 7.1, 3.3, 9.9">
+        
+        <button onclick="calculateSum()">Вычислить</button>
+
+        <div id="result" class="result-box"></div>
+    </div>
+
+    <script>
+        function calculateSum() {
+            // Получаем строку от пользователя
+            let inputStr = document.getElementById('arrayInput').value;
+            
+            // Разбиваем строку по запятым или пробелам, убираем пустые элементы и превращаем в числа
+            // Используем регулярное выражение для разделения
+            let arr = inputStr.split(/[\s,]+/).filter(item => item !== '').map(Number);
+
+            // Проверка, что ввели корректные числа
+            if (arr.length === 0 || arr.some(isNaN)) {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').innerHTML = "<p style='color:red;'>Ошибка! Введите корректные числа.</p>";
+                return;
+            }
+
+            let sum = 0;
+            let foundIndex = -1;
+            let foundValue = null;
+
+            // Ищем первый элемент с положительным синусом
+            for (let i = 0; i < arr.length; i++) {
+                if (Math.sin(arr[i]) > 0) {
+                    foundIndex = i;
+                    foundValue = arr[i];
+                    break; // Останавливаемся
+                }
+                sum += arr[i]; // Если не нашли, прибавляем к сумме
+            }
+
+            let resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+
+            if (foundIndex !== -1) {
+                resultDiv.innerHTML = `
+                    <p>Исходный массив: <strong>[${arr.join(', ')}]</strong></p>
+                    <p>Первый элемент с положительным синусом: <strong>${foundValue}</strong> (индекс ${foundIndex}, sin = ${Math.sin(foundValue).toFixed(2)})</p>
+                    <p>Сумма элементов до него: <strong style="color: #27ae60; font-size: 20px;">${sum.toFixed(2)}</strong></p>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <p>Исходный массив: <strong>[${arr.join(', ')}]</strong></p>
+                    <p style="color: #e74c3c;">Элементов с положительным синусом не найдено.</p>
+                    <p>Сумма всех элементов: <strong>${sum.toFixed(2)}</strong></p>
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>

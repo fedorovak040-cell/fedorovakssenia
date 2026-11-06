@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 4 - Подсчет слогов</title>
+    <link rel="stylesheet" href="style4.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Подсчет слогов в слове</h1>
+        
+        <p class="hint">Введите слово на русском языке:</p>
+        <input type="text" id="wordInput" placeholder="Например: Молоко">
+        
+        <button onclick="countSyllables()">Посчитать слоги</button>
+
+        <div id="result" class="result-box"></div>
+    </div>
+
+    <script>
+        function countSyllables() {
+            // Получаем слово из поля ввода и убираем пробелы по краям
+            let word = document.getElementById('wordInput').value.trim();
+            let resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+
+            // Проверка на пустую строку
+            if (word === '') {
+                resultDiv.innerHTML = "<p style='color:red;'>Ошибка! Вы ничего не ввели.</p>";
+                return;
+            }
+
+            // Проверка, что введены только русские буквы (и дефис для сложных слов)
+            if (!/^[а-яА-ЯёЁ\-]+$/.test(word)) {
+                resultDiv.innerHTML = "<p style='color:red;'>Ошибка! Введите слово только из русских букв.</p>";
+                return;
+            }
+
+            // Гласные буквы русского алфавита
+            let vowels = "аеёиоуыэюяАЕЁИОУЫЭЮЯ";
+            let count = 0;
+
+            // Проходим по каждому символу слова
+            for (let i = 0; i < word.length; i++) {
+                // Если текущий символ есть в строке гласных
+                if (vowels.includes(word[i])) {
+                    count++;
+                }
+            }
+
+            // Красивое склонение слова "слог"
+            let wordForm = "слогов";
+            if (count % 10 === 1 && count % 100 !== 11) {
+                wordForm = "слог";
+            } else if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
+                wordForm = "слога";
+            }
+
+            // Вывод результата
+            resultDiv.innerHTML = `
+                <p>В слове <strong>"${word}"</strong>:</p>
+                <p style="font-size: 24px; color: #27ae60; margin-top: 10px;">
+                    <strong>${count}</strong> ${wordForm}
+                </p>
+            `;
+        }
+    </script>
+
+</body>
+</html>

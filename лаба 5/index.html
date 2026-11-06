@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка на простое число</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Проверка числа на простоту</h1>
+        <p>Введите целое число больше 1:</p>
+        
+        <input type="number" id="numberInput" placeholder="Например: 17">
+        <button onclick="checkPrime()">Проверить</button>
+        
+        <div id="result" class="result-box"></div>
+    </div>
+
+    <script>
+        function checkPrime() {
+            // Получаем значение из поля ввода
+            let input = document.getElementById('numberInput').value;
+            let resultDiv = document.getElementById('result');
+            
+            // Проверка на пустую строку
+            if (input === '') {
+                resultDiv.innerHTML = "Пожалуйста, введите число.";
+                resultDiv.style.color = "#e74c3c";
+                return;
+            }
+
+            let num = parseInt(input);
+
+            // Простые числа начинаются с 2
+            if (num <= 1) {
+                resultDiv.innerHTML = `Число ${num} не является простым.`;
+                resultDiv.style.color = "#e74c3c";
+                return;
+            }
+
+            // Алгоритм проверки на простое число
+            let isPrime = true;
+            // Достаточно проверять до корня из числа для оптимизации
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            // Вывод результата
+            if (isPrime) {
+                resultDiv.innerHTML = `✅ Число ${num} — <strong>простое</strong>.`;
+                resultDiv.style.color = "#27ae60";
+            } else {
+                resultDiv.innerHTML = `❌ Число ${num} — <strong>составное</strong> (не простое).`;
+                resultDiv.style.color = "#e74c3c";
+            }
+        }
+    </script>
+
+</body>
+</html>
